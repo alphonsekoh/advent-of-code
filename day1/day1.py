@@ -41,7 +41,7 @@ Find the Elf carrying the most Calories. How many total Calories is that Elf car
 
 import os
 
-def read_input():
+def read_input() -> list:
 	"""
 	Read the input file and return a list of lists of integers.
 	"""
@@ -49,9 +49,11 @@ def read_input():
 	with open(input_file, 'r') as f:
 		return f.read().strip().split('\n')
 
-def find_max_calories():
+def find_all_calories() -> list:
 	"""
-	Algorithm to find the maximum number of calories in the input file.
+	Algorithm to find the total number of calories of each elves in the input file.
+	Differentiating Factor: Each Elves separates their own inventory from the previous Elf's inventory by a '' in the list.
+	Hence we find whether the iterator is a digit or a '' and add the calories accordingly.
 	"""
 	elves_calories_list = read_input()
 	total_calories_list = []
@@ -63,11 +65,29 @@ def find_max_calories():
 			total_calories_list.append(elf_calories)
 			elf_calories = 0 
 			
-	return max(total_calories_list)
+	return total_calories_list
 
+"""
+--- Part Two ---
+By the time you calculate the answer to the Elves' question, they've already realized that the Elf carrying the most Calories of food might eventually run out of snacks.
+
+To avoid this unacceptable situation, the Elves would instead like to know the total Calories carried by the top three Elves carrying the most Calories. That way, even if one of those Elves runs out of snacks, they still have two backups.
+
+In the example above, the top three Elves are the fourth Elf (with 24000 Calories), then the third Elf (with 11000 Calories), then the fifth Elf (with 10000 Calories). The sum of the Calories carried by these three elves is 45000.
+
+Find the top three Elves carrying the most Calories. How many Calories are those Elves carrying in total?
+"""
+
+def find_three_top_total() -> int:
+	"""
+	Algorithm to find the top three elves and return the sum of their calories.
+	Sort the list of calories and return the sum of the last three elements.
+	"""
+	return sorted(find_all_calories())[-1] + sorted(find_all_calories())[-2] + sorted(find_all_calories())[-3]
 
 def main():
-	print(find_max_calories()) # Part 1
+	print(f"Top elf: {max(find_all_calories())}") # Part 1
+	print(f"Top Three Total: {find_three_top_total()}") # Part 2
 
 if __name__ == "__main__":
 	main()
