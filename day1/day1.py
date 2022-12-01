@@ -1,4 +1,5 @@
 """
+PART 1
 --- Day 1: Calorie Counting ---
 Santa's reindeer typically eat regular reindeer food, but they need a lot of magical energy to deliver presents on Christmas. For that, their favorite snack is a special type of star fruit that only grows deep in the jungle. The Elves have brought you on their annual expedition to the grove where the fruit grows.
 
@@ -37,3 +38,36 @@ In case the Elves get hungry and need extra snacks, they need to know which Elf 
 
 Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?
 """
+
+import os
+
+def read_input():
+	"""
+	Read the input file and return a list of lists of integers.
+	"""
+	input_file = os.path.join(os.path.dirname(__file__), 'input_day1.txt')
+	with open(input_file, 'r') as f:
+		return f.read().strip().split('\n')
+
+def find_max_calories():
+	"""
+	Algorithm to find the maximum number of calories in the input file.
+	"""
+	elves_calories_list = read_input()
+	total_calories_list = []
+	elf_calories = 0
+	for i in range(len(elves_calories_list)):
+		if elves_calories_list[i].isdigit():
+			elf_calories += int(elves_calories_list[i])
+		else:
+			total_calories_list.append(elf_calories)
+			elf_calories = 0 
+			
+	return max(total_calories_list)
+
+
+def main():
+	print(find_max_calories()) # Part 1
+
+if __name__ == "__main__":
+	main()
