@@ -28,12 +28,43 @@ import os
 
 def read_input() -> list:
 	"""
-	Read the input file and return a list of lists of integers.
+	Read the input file and return a list of characters.
 	"""
 	input_file = os.path.join(os.path.dirname(__file__), 'input.txt')
 	with open(input_file, 'r') as f:
 		return f.read().strip().split('\n')
 
+def find_score() -> int:
+	"""
+	Algorithm to find the score of the game.
+	Opponent chooses A (Rock), B (Paper), or C (Scissors). You choose X, Y, or Z.
+	X = 1, Y = 2, Z = 3, Win + 6, Draw + 3, Lose + 0
+	"""
+	rounds = read_input()
+	score = 0
+	for i in range(len(rounds)):
+		if rounds[i][0] == 'A':
+			if rounds[i][2] == 'X':
+				score += (1+3)
+			elif rounds[i][2] == 'Y':
+				score += (2+6)
+			else:
+				score += (3+0)
+		elif rounds[i][0] == 'B':
+			if rounds[i][2] == 'X':
+				score += (1+0)
+			elif rounds[i][2] == 'Y':
+				score += (2+3)
+			else:
+				score += (3+6)
+		else:
+			if rounds[i][2] == 'X':
+				score += (1+6)
+			elif rounds[i][2] == 'Y':
+				score += (2+0)
+			else:
+				score += (3+3)
+	return score
 
 if __name__ == "__main__":
-	print(read_input())
+	print(find_score())
