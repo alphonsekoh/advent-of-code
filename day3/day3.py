@@ -40,3 +40,36 @@ def read_input() -> list:
 	with open(input_file, 'r') as f:
 		return f.read().strip().split('\n')
 
+def rucksack_sort() -> list:
+	"""
+	Find the character that appear in both compartments of each rucksack and appends them to a list
+	"""
+	apu = read_input()
+	rucksack_list = []
+	for i in range(len(apu)):
+		compartment_size = int(len(apu[i]) / 2)
+		first_compartment = apu[i][0:compartment_size]
+		second_compartment = apu[i][compartment_size:len(apu[i])]
+		for j in first_compartment:
+			if j in second_compartment:
+				rucksack_list.append(j)
+				break
+	return rucksack_list
+
+def sum_priorities() -> int:
+	"""
+	Sum the priorities of the characters that appear in both compartments of each rucksack.
+	"""
+	rucksack_list = rucksack_sort()
+	priorities = []
+	for i in rucksack_list:
+		if i.islower():
+			priorities.append(ord(i) - ord("a") + 1)
+		else:
+			priorities.append(ord(i) - ord("A") + 27)
+	print(priorities)
+	return sum(priorities)
+
+if __name__ == '__main__':
+	print(rucksack_sort())
+	print(f"Part 1 Priority sum: {sum_priorities()}")
