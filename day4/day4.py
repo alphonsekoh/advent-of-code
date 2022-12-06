@@ -63,7 +63,7 @@ def read_input() -> list:
 
 def check_overlap(input: list) -> int:
 	"""
-	Using a list of strings, check for overlaps.
+	Using a list of sets, check for full subsets.
 	"""
 	overlap = 0
 	set_first_half = [None] * len(input)
@@ -83,6 +83,39 @@ def check_overlap(input: list) -> int:
 			overlap += 1
 	return overlap
 
+"""
+--- Part Two ---
+It seems like there is still quite a bit of duplicate work planned. Instead, the Elves would like to know the number of pairs that overlap at all.
+
+In the above example, the first two pairs (2-4,6-8 and 2-3,4-5) don't overlap, while the remaining four pairs (5-7,7-9, 2-8,3-7, 6-6,4-6, and 2-6,4-8) do overlap:
+
+5-7,7-9 overlaps in a single section, 7.
+2-8,3-7 overlaps all of the sections 3 through 7.
+6-6,4-6 overlaps in a single section, 6.
+2-6,4-8 overlaps in sections 4, 5, and 6.
+So, in this example, the number of overlapping assignment pairs is 4.
+"""
+def check_intersection(input: list) -> int:
+	"""
+	Using a list of sets, check for possible intersections.
+	"""
+	intersection = 0
+	set_first_half = [None] * len(input)
+	set_second_half = [None] * len(input)
+	# Convert the list of strings to a list of sets
+	# This will allow us to use the intersection method
+	# Do a step of 2 cause in between has a None value
+	for i in range(0, len(input), 2):
+		set_first_half[i] = set(range(int(input[i].split('-')[0]), int(input[i].split('-')[1])+1))
+		set_second_half[i] = set(range(int(input[i+1].split('-')[0]), int(input[i+1].split('-')[1])+1))
+	for i in range(0, len(set_first_half), 2):
+		# Check if the first half of the set is contained in the second half
+		if set_first_half[i].intersection(set_second_half[i]):
+			intersection += 1
+	return intersection
+
 if __name__ == '__main__':
-	input = check_overlap(read_input()) 
-	print(input) # Part 1 
+	part_1 = check_overlap(read_input()) 
+	print(f"Part 1 Answer is {part_1}") # Part 1
+	part_2 = check_intersection(read_input())
+	print(f"Part 2 Answer is {part_2}") # Part 2
