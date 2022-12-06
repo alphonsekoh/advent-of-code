@@ -40,3 +40,49 @@ Some of the pairs have noticed that one of their assignments fully contains the 
 
 In how many assignment pairs does one range fully contain the other?
 """
+
+import os
+import re
+
+TEST_DATA = ["2-4", "6-8", 
+			"2-3", "4-5", 
+			"5-7", "7-9", 
+			"2-8", "3-7", 
+			"6-6" ,"4-6", 
+			"2-6", "4-8"
+			]
+
+def read_input() -> list:
+	"""
+	Read the input file and return a list of characters.
+	Using regex to do a multi-split to segregate the pairs of elves assignments.
+	"""
+	input_file = os.path.join(os.path.dirname(__file__), 'input.txt')
+	with open(input_file, 'r') as f:
+		return re.split(',|\n|\+', f.read())
+
+def check_overlap(input: list) -> int:
+	"""
+	Using a list of strings, check for overlaps.
+	"""
+	overlap = 0
+	set_first_half = [None] * len(input)
+	set_second_half = [None] * len(input)
+	# Convert the list of strings to a list of sets
+	# This will allow us to use the subset method
+	# Do a step of 2 cause in between has a None value
+	for i in range(0, len(input), 2):
+		set_first_half[i] = set(range(int(input[i].split('-')[0]), int(input[i].split('-')[1])+1))
+		set_second_half[i] = set(range(int(input[i+1].split('-')[0]), int(input[i+1].split('-')[1])+1))
+	for i in range(0, len(set_first_half), 2):
+		# Check if the first half of the set is contained in the second half
+		if set_first_half[i].issubset(set_second_half[i]):
+			overlap += 1
+		# Check if the second half of the set is contained in the first half
+		elif set_second_half[i].issubset(set_first_half[i]):
+			overlap += 1
+	return overlap
+
+if __name__ == '__main__':
+	input = check_overlap(read_input()) 
+	print(input) # Part 1 
