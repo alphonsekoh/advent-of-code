@@ -1,0 +1,23 @@
+{
+  "name": "advent-of-code-2024",
+  "version": "1.0.0",
+  "description": "AoC 2024",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alphonsekoh/advent-of-code.git"
+  },
+  "author": "David Alastair Koh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alphonsekoh/advent-of-code/issues"
+  },
+  "homepage": "https://github.com/alphonsekoh/advent-of-code#readme",
+  "dependencies": {
+    "aoc-automation": "^2.1.3",
+    "dotenv": "^16.4.7"
+  }
+}
