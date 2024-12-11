@@ -58,9 +58,31 @@ const part1 = (rawInput: string) => {
   return safeCount;
 };
 
+
+function isReportSafeWithDampener(report: number[]): boolean {
+  // Check if it's already safe
+  if (isReportSafe(report)) return true;
+
+  // Try removing one element at a time
+  for (let i = 0; i < report.length; i++) {
+    const newReport = report.slice(0, i).concat(report.slice(i + 1));
+    if (isReportSafe(newReport)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 const part2 = (rawInput: string) => {
   const input = parseInput(rawInput);
-
+  let safeCount = 0;
+  const reports = input.split("\n").map((report) => report.split(" ").map(Number));
+  for (const report of reports) {
+    if (isReportSafeWithDampener(report)) {
+      safeCount++;
+    }
+  }
+  return safeCount;
   return;
 };
 

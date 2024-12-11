@@ -32,15 +32,15 @@
           "382",
           "329"
         ],
-        "time": 0.8883
+        "time": 0.8862
       },
       "part2": {
-        "solved": false,
-        "result": null,
+        "solved": true,
+        "result": "413",
         "attempts": [
           "397"
         ],
-        "time": null
+        "time": 2.354
       }
     },
     {
